@@ -3,7 +3,7 @@ import numpy as np
 
 class bacteria:
 
-    def __init__(self, Pdivmax, Kx, Pdeath, resist, tol, state = 0):
+    def __init__(self, Pdivmax, Kx, Pdeath, resist, tol, state=0):
 
         self.Pmax = Pdivmax
         self.Kx = Kx
@@ -13,16 +13,26 @@ class bacteria:
 
     def divide(self, nutr):
 
-        if np.random.random() < (self.Pmax*nutr)/(nutr+self.Kx):
-            return True
+        if self.state == 0:
+
+            if np.random.random() < (self.Pmax*nutr)/(nutr+self.Kx):
+                return True
+
+            else:
+                return False
 
         else:
             return False
 
     def death(self, C):
 
-        if np.random.random() < self.Pdeath:
-            return True
+        if self.state == 0:
+
+            if np.random.random() < self.Pdeath:
+                return True
+
+            else:
+                return False
 
         else:
             return False
