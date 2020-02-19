@@ -4,11 +4,10 @@ import matplotlib.pyplot as plt
 
 class colony:
 
-    def __init__(self, Pdeath, alpha, beta, length, resist=0, tol=0):
+    def __init__(self, Pdeath, Nm, length, resist=0, tol=0):
 
         self.Pdeath = Pdeath
-        self.alpha = alpha
-        self.beta = beta
+        self.Nm = Nm
         self.length = length
         self.resist = resist
         self.tol = tol
@@ -17,8 +16,7 @@ class colony:
 
         for i in range(length):
 
-            self.pop.append(bacteria(self.alpha,
-                                     self.beta,
+            self.pop.append(bacteria(self.Nm,
                                      self.Pdeath,
                                      self.resist,
                                      self.tol))
@@ -29,8 +27,7 @@ class colony:
 
             if i.divide(len(self.pop)):
 
-                self.pop.append(bacteria(self.alpha,
-                                         self.beta,
+                self.pop.append(bacteria(self.Nm,
                                          self.Pdeath,
                                          self.resist,
                                          self.tol))
@@ -56,13 +53,12 @@ class colony:
 
 if __name__ == "__main__":
 
-    alpha = 2
-    beta = 1
+    Nm = 4000
     Pdeath = 0.1
-    length = 20
-    T = 10000
+    length = 100
+    T = 100
 
-    c = colony(Pdeath, alpha, beta, length)
+    c = colony(Pdeath, Nm, length)
     results = c.run(T)
 
     plt.plot(range(T+1), results)

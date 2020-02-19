@@ -3,10 +3,9 @@ import numpy as np
 
 class bacteria:
 
-    def __init__(self, alpha, beta, Pdeath, resist, tol, state=0):
+    def __init__(self, Nm, Pdeath, resist, tol, state=0):
 
-        self.alpha = alpha
-        self.beta = beta
+        self.Nm = Nm
         self.Pdeath = Pdeath
         self.resist = resist
         self.state = state  # 0 for normal, 1 for tol
@@ -15,7 +14,7 @@ class bacteria:
 
         if self.state == 0:
 
-            if np.random.random() < self.alpha/(N-self.beta):
+            if np.random.random() < self.Pdeath + (self.Nm-N)/self.Nm:
                 return True
 
             else:
