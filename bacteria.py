@@ -24,7 +24,7 @@ class bacteria:
         else:
             return False
 
-    def death(self, C):
+    def death(self):
 
         if self.state == 0:
 
@@ -33,6 +33,3 @@ class bacteria:
 
             else:
                 return False
-
-        else:
-            return False
