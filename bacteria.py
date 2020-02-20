@@ -14,7 +14,7 @@ class bacteria:
 
         if self.state == 0:
 
-            if np.random.random() < self.Pdeath + (self.Nm-N)/self.Nm:
+            if np.random.random() < self.Pdeath + (self.Nm-N)*self.Pdeath/self.Nm:
                 return True
 
             else:
