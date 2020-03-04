@@ -4,12 +4,13 @@ import matplotlib.pyplot as plt
 
 class colony:
 
-    def __init__(self, Pdeath, Nm, length, resist=0, tol=0):
+    def __init__(self, Pdeath, Nm, length, C, sensi=0, tol=0):
 
         self.Pdeath = Pdeath
         self.Nm = Nm
         self.length = length
-        self.resist = resist
+        self.C = C
+        self.sensi = sensi
         self.tol = tol
 
         self.pop = []
@@ -18,24 +19,34 @@ class colony:
 
             self.pop.append(bacteria(self.Nm,
                                      self.Pdeath,
-                                     self.resist,
+                                     self.sensi,
                                      self.tol))
 
     def updatePop(self):
 
+        countDiv = 0
+        countDeath = 0
+
         for i in self.pop:
 
             if i.divide(len(self.pop)):
+                countDiv += 1
 
-                self.pop.append(bacteria(self.Nm,
-                                         self.Pdeath,
-                                         self.resist,
-                                         self.tol))
+            if i.death(self.C):
+                countDeath += 1
 
-        for i in self.pop:
+        # print(countDiv, countDeath)
 
-            if i.death():
-                self.pop.remove(i)
+        for i in range(countDiv):
+
+            self.pop.append(bacteria(self.Nm,
+                                     self.Pdeath,
+                                     self.sensi,
+                                     self.tol))
+
+        for i in range(countDeath):
+
+            self.pop.pop()
 
     def stats(self):
         return len(self.pop)
@@ -45,6 +56,8 @@ class colony:
         ret = [self.stats()]
 
         for t in range(T):
+            # print(t)
+            # print(self.stats())
             self.updatePop()
             ret.append(self.stats())
 
@@ -53,12 +66,14 @@ class colony:
 
 if __name__ == "__main__":
 
-    Nm = 4000
+    Nm = 10000
     Pdeath = 0.1
     length = 100
-    T = 100
+    C = 5
+    sensi = .5
+    T = 200
 
-    c = colony(Pdeath, Nm, length)
+    c = colony(Pdeath, Nm, length, C)
     results = c.run(T)
 
     plt.plot(range(T+1), results)
