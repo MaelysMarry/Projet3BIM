@@ -32,10 +32,10 @@ class colony:
             if i.divide(len(self.pop)):
                 countDiv += 1
 
+            i.tolerance()
+
             if i.death(self.C):
                 countDeath += 1
-
-        # print(countDiv, countDeath)
 
         for i in range(countDiv):
 
@@ -49,6 +49,12 @@ class colony:
             self.pop.pop()
 
     def stats(self):
+        # nbTol = 0
+        # for i in self.pop:
+        #     if i.state == 0:
+        #         nbTol += 1
+
+        # print(nbTol/len(self.pop))
         return len(self.pop)
 
     def run(self, T):
@@ -69,11 +75,12 @@ if __name__ == "__main__":
     Nm = 10000
     Pdeath = 0.1
     length = 100
-    C = .45
-    sensi = .05
-    T = 200
+    C = 1
+    sensi = .2
+    tol = 0
+    T = 50
 
-    c = colony(Pdeath, Nm, length, C, sensi)
+    c = colony(Pdeath, Nm, length, C, sensi, tol)
     results = c.run(T)
 
     plt.plot(range(T+1), results)

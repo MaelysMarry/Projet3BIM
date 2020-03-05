@@ -15,7 +15,7 @@ def Pdi2(N, Nm, Pde):
     return Pde*(1+(Nm-N)/Nm)
 
 
-def Pde(Pdeath, C, s):
+def Pde(Pdeath, C, s, state):
 
     # print(Pdeath+s*C)
-    return Pdeath+s*C
+    return Pdeath+s*C*state

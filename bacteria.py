@@ -4,16 +4,17 @@ import functions as fc
 
 class bacteria:
 
-    def __init__(self, Nm, Pdeath, sensi, tol, state=0):
+    def __init__(self, Nm, Pdeath, sensi, tol, state=1):
 
         self.Nm = Nm
         self.Pdeath = Pdeath
         self.sensi = sensi
-        self.state = state  # 0 for normal, 1 for tol
+        self.tol = tol
+        self.state = state  # 0 for tol, 1 for normal
 
     def divide(self, N):
 
-        if self.state == 0:
+        if self.state == 1:
 
             if np.random.random() < fc.Pdi2(N, self.Nm, self.Pdeath):
                 # print(fc.Pdi(N, self.Nm, self.Pdeath, 0.1))
@@ -27,10 +28,17 @@ class bacteria:
 
     def death(self, C):
 
-        if self.state == 0:
+        if np.random.random() < fc.Pde(self.Pdeath, C, self.sensi,
+                                       self.state):
+            return True
 
-            if np.random.random() < fc.Pde(self.Pdeath, C, self.sensi):
-                return True
+        else:
+            return False
 
-            else:
-                return False
+    def tolerance(self):
+
+        if np.random.random() < self.tol and self.state == 1:
+            self.state = not self.state
+
+        elif np.random.random() < 1-self.tol and self.state == 0:
+            self.state = not self.state
