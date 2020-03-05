@@ -69,11 +69,11 @@ if __name__ == "__main__":
     Nm = 10000
     Pdeath = 0.1
     length = 100
-    C = 5
-    sensi = .5
+    C = .45
+    sensi = .05
     T = 200
 
-    c = colony(Pdeath, Nm, length, C)
+    c = colony(Pdeath, Nm, length, C, sensi)
     results = c.run(T)
 
     plt.plot(range(T+1), results)

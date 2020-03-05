@@ -1,5 +1,4 @@
 from math import exp
-import decimal
 
 
 def Pdi(N, Nm, Pde, r):
@@ -14,3 +13,9 @@ def Pdi(N, Nm, Pde, r):
 def Pdi2(N, Nm, Pde):
 
     return Pde*(1+(Nm-N)/Nm)
+
+
+def Pde(Pdeath, C, s):
+
+    # print(Pdeath+s*C)
+    return Pdeath+s*C
