@@ -1,10 +1,12 @@
 from bacteria import bacteria
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class colony:
 
-    def __init__(self, Pdeath, Nm, length, C, sensi=0, tol=0):
+    def __init__(self, Pdeath, Nm, length, C, sensi=0, tol=0, Pmut=0, sigmaS=0,
+                 sigmaT=0):
 
         self.Pdeath = Pdeath
         self.Nm = Nm
@@ -12,6 +14,9 @@ class colony:
         self.C = C
         self.sensi = sensi
         self.tol = tol
+        self.Pmut = Pmut
+        self.sigmaS = sigmaS
+        self.sigmaT = sigmaT
 
         self.pop = []
 
@@ -20,33 +25,55 @@ class colony:
             self.pop.append(bacteria(self.Nm,
                                      self.Pdeath,
                                      self.sensi,
-                                     self.tol))
+                                     self.tol,
+                                     self.Pmut))
 
     def updatePop(self):
 
-        countDiv = 0
-        countDeath = 0
+        div = []
+        death = []
 
         for i in self.pop:
 
             if i.divide(len(self.pop)):
-                countDiv += 1
+
+                if i.mutate():
+
+                    div.append(bacteria(i.Nm,
+                                        i.Pdeath,
+                                        i.sensi
+                                        + self.sigmaS * np.random.randn(),
+                                        i.tol,
+                                        i.Pmut))
+
+                if i.mutate():
+
+                    div.append(bacteria(i.Nm,
+                                        i.Pdeath,
+                                        i.sensi,
+                                        i.tol
+                                        + self.sigmaT * np.random.randn(),
+                                        i.Pmut))
+
+                else:
+
+                    div.append(bacteria(i.Nm,
+                                        i.Pdeath,
+                                        i.sensi,
+                                        i.tol,
+                                        i.Pmut))
 
             i.tolerance()
 
             if i.death(self.C):
-                countDeath += 1
+                death.append(self.pop.index(i))
 
-        for i in range(countDiv):
+        death = death[::-1]
 
-            self.pop.append(bacteria(self.Nm,
-                                     self.Pdeath,
-                                     self.sensi,
-                                     self.tol))
+        for i in range(len(death)):
+            self.pop.pop(death[i])
 
-        for i in range(countDeath):
-
-            self.pop.pop()
+        self.pop += div
 
     def stats(self):
         # nbTol = 0
@@ -76,11 +103,14 @@ if __name__ == "__main__":
     Pdeath = 0.1
     length = 100
     C = .3
-    sensi = 0
+    sensi = .5
     tol = 0.1
-    T = 40
+    Pmut = 0.01
+    sigmaS = 0.01
+    sigmaT = 0.01
+    T = 10000
 
-    c = colony(Pdeath, Nm, length, C, sensi, tol)
+    c = colony(Pdeath, Nm, length, C, sensi, tol, Pmut, sigmaS, sigmaT)
     results = c.run(T)
 
     plt.plot(range(T+1), results)
