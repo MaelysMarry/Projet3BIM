@@ -37,7 +37,7 @@ class colony:
 
             if i.divide(len(self.pop)):
 
-                if i.mutate():
+                if i.mutate(self.Pmut):
 
                     div.append(bacteria(i.Nm,
                                         i.Pdeath,
@@ -46,7 +46,7 @@ class colony:
                                         i.tol,
                                         i.Pmut))
 
-                if i.mutate():
+                if i.mutate(self.Pmut):
 
                     div.append(bacteria(i.Nm,
                                         i.Pdeath,
@@ -82,6 +82,12 @@ class colony:
         #         nbTol += 1
 
         # print(nbTol/len(self.pop))
+
+        moy = 0
+        for i in self.pop:
+            moy += i.sensi
+        print(moy/(len(self.pop)+1))
+
         return len(self.pop)
 
     def run(self, T):
@@ -105,10 +111,10 @@ if __name__ == "__main__":
     C = .3
     sensi = .5
     tol = 0.1
-    Pmut = 0.01
-    sigmaS = 0.01
+    Pmut = 0.1
+    sigmaS = 0.1
     sigmaT = 0.01
-    T = 10000
+    T = 1000
 
     c = colony(Pdeath, Nm, length, C, sensi, tol, Pmut, sigmaS, sigmaT)
     results = c.run(T)

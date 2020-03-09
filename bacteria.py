@@ -18,7 +18,7 @@ class bacteria:
         return (self.state == 1 and
                 np.random.random() < fc.Pdi(N, self.Nm, self.Pdeath, 1e-5))
 
-    def mutate(self):
+    def mutate(self, Pmut):
 
         return np.random.random() < self.Pmut
 
