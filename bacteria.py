@@ -16,7 +16,7 @@ class bacteria:
 
         if self.state == 1:
 
-            if np.random.random() < fc.Pdi2(N, self.Nm, self.Pdeath):
+            if np.random.random() < fc.Pdi(N, self.Nm, self.Pdeath, 1e-5):
                 # print(fc.Pdi(N, self.Nm, self.Pdeath, 0.1))
                 return True
 

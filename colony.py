@@ -62,7 +62,7 @@ class colony:
         ret = [self.stats()]
 
         for t in range(T):
-            # print(t)
+            print(t)
             # print(self.stats())
             self.updatePop()
             ret.append(self.stats())
@@ -75,10 +75,10 @@ if __name__ == "__main__":
     Nm = 10000
     Pdeath = 0.1
     length = 100
-    C = 1
-    sensi = .2
-    tol = 0
-    T = 50
+    C = .3
+    sensi = 0
+    tol = 0.1
+    T = 40
 
     c = colony(Pdeath, Nm, length, C, sensi, tol)
     results = c.run(T)
