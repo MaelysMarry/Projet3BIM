@@ -4,13 +4,12 @@ import functions as fc
 
 class bacteria:
 
-    def __init__(self, Nm, Pdeath, sensi, tol, Pmut, state=1):
+    def __init__(self, Nm, Pdeath, sensi, tol, state=1):
 
         self.Nm = Nm
         self.Pdeath = Pdeath
         self.sensi = sensi
         self.tol = tol
-        self.Pmut = Pmut
         self.state = state  # 0 for tol, 1 for normal
 
     def divide(self, N):
@@ -20,7 +19,7 @@ class bacteria:
 
     def mutate(self, Pmut):
 
-        return np.random.random() < self.Pmut
+        return np.random.random() < Pmut
 
     def death(self, C):
 

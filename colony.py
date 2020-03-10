@@ -5,8 +5,8 @@ import numpy as np
 
 class colony:
 
-    def __init__(self, Pdeath, Nm, length, C, sensi=0, tol=0, Pmut=0, sigmaS=0,
-                 sigmaT=0):
+    def __init__(self, Pdeath, Nm, length, C, sensi=0, tol=0, PmutS=0, PmutT=0,
+                 sigmaS=0, sigmaT=0):
 
         self.Pdeath = Pdeath
         self.Nm = Nm
@@ -14,7 +14,8 @@ class colony:
         self.C = C
         self.sensi = sensi
         self.tol = tol
-        self.Pmut = Pmut
+        self.PmutS = PmutS
+        self.PmutT = PmutT
         self.sigmaS = sigmaS
         self.sigmaT = sigmaT
 
@@ -25,8 +26,7 @@ class colony:
             self.pop.append(bacteria(self.Nm,
                                      self.Pdeath,
                                      self.sensi,
-                                     self.tol,
-                                     self.Pmut))
+                                     self.tol))
 
     def updatePop(self):
 
@@ -37,31 +37,28 @@ class colony:
 
             if i.divide(len(self.pop)):
 
-                if i.mutate(self.Pmut):
+                if i.mutate(self.PmutS):
 
                     div.append(bacteria(i.Nm,
                                         i.Pdeath,
                                         i.sensi
                                         + self.sigmaS * np.random.randn(),
-                                        i.tol,
-                                        i.Pmut))
+                                        i.tol))
 
-                if i.mutate(self.Pmut):
+                if i.mutate(self.PmutT):
 
                     div.append(bacteria(i.Nm,
                                         i.Pdeath,
                                         i.sensi,
                                         i.tol
-                                        + self.sigmaT * np.random.randn(),
-                                        i.Pmut))
+                                        + self.sigmaT * np.random.randn()))
 
                 else:
 
                     div.append(bacteria(i.Nm,
                                         i.Pdeath,
                                         i.sensi,
-                                        i.tol,
-                                        i.Pmut))
+                                        i.tol))
 
             i.tolerance()
 
@@ -83,12 +80,16 @@ class colony:
 
         # print(nbTol/len(self.pop))
 
-        moy = 0
+        moyS = 0
+        moyT = 0
         for i in self.pop:
-            moy += i.sensi
-        print(moy/(len(self.pop)+1))
+            moyS += i.sensi
+            moyT += i.tol
+        # print(moyS/(len(self.pop)+1))
+        # print(moyT/(len(self.pop)+1))
+        # print("\n")
 
-        return len(self.pop)
+        return (len(self.pop), moyS/(len(self.pop)+1), moyT/(len(self.pop)+1))
 
     def run(self, T):
 
@@ -110,14 +111,19 @@ if __name__ == "__main__":
     length = 100
     C = .3
     sensi = .5
-    tol = 0.1
-    Pmut = 0.1
-    sigmaS = 0.1
+    tol = 0.05
+    PmutS = 0.01
+    PmutT = 0.1
+    sigmaS = 0.01
     sigmaT = 0.01
-    T = 1000
+    T = 2000
 
-    c = colony(Pdeath, Nm, length, C, sensi, tol, Pmut, sigmaS, sigmaT)
+    c = colony(Pdeath, Nm, length, C, sensi, tol, PmutS, PmutT, sigmaS, sigmaT)
     results = c.run(T)
 
-    plt.plot(range(T+1), results)
+    print(results[:][0])
+
+    # plt.plot(range(T+1), [results[i][0] for i in range(len(results))])
+    plt.plot(range(T+1), [results[i][1] for i in range(len(results))])
+    plt.plot(range(T+1), [results[i][2] for i in range(len(results))])
     plt.show()
