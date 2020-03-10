@@ -9,8 +9,16 @@ class bacteria:
         self.Nm = Nm
         self.Pdeath = Pdeath
         self.sensi = sensi
-        self.tol = tol
+
+        if tol < 0:
+            self.tol = 0
+        elif tol > 1:
+            self.tol = 1
+        else:
+            self.tol = tol
+
         self.state = state  # 0 for tol, 1 for normal
+        self.time_tol = 0
 
     def divide(self, N):
 
