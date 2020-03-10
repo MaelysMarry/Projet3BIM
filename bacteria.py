@@ -4,20 +4,21 @@ import functions as fc
 
 class bacteria:
 
-    def __init__(self, Nm, Pdeath, sensi, tol, state=1):
+    def __init__(self, Nm, Pdeath, sensi, Ptol, Pdetol, state=1):
 
         self.Nm = Nm
         self.Pdeath = Pdeath
         self.sensi = sensi
 
-        if tol < 0:
-            self.tol = 0
-        elif tol > 1:
-            self.tol = 1
+        if Ptol < 0:
+            self.Ptol = 0
+        elif Ptol > 1:
+            self.Ptol = 1
         else:
-            self.tol = tol
+            self.Ptol = Ptol
 
-        self.state = state  # 0 for tol, 1 for normal
+        self.Pdetol = Pdetol
+        self.state = state  # 0 for Ptol, 1 for normal
         self.time_tol = 0
 
     def divide(self, N):
@@ -36,8 +37,8 @@ class bacteria:
 
     def tolerance(self):
 
-        if np.random.random() < self.tol and self.state == 1:
+        if np.random.random() < self.Ptol and self.state == 1:
             self.state = not self.state
 
-        elif np.random.random() < 1-self.tol and self.state == 0:
+        elif np.random.random() < self.Pdetol and self.state == 0:
             self.state = not self.state
