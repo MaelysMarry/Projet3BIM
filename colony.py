@@ -1,11 +1,12 @@
 from bacteria import bacteria
 import matplotlib.pyplot as plt
 import numpy as np
+import math as math
 
 
 class colony:
 
-    def __init__(self, Pdeath, Nm, length, C, sensi=0, Ptol=0, Pdetol=0,
+    def __init__(self, Pdeath, Nm, length, C, sensi=0, Ptol=0, time_tol_max=0,
                  PmutS=0, PmutT=0, sigmaS=0, sigmaT=0):
 
         self.Pdeath = Pdeath
@@ -14,7 +15,7 @@ class colony:
         self.C = C
         self.sensi = sensi
         self.Ptol = Ptol
-        self.Pdetol = Pdetol
+        self.time_tol_max = time_tol_max
         self.PmutS = PmutS
         self.PmutT = PmutT
         self.sigmaS = sigmaS
@@ -26,12 +27,12 @@ class colony:
 
             self.pop.append(bacteria(self.Nm,
                                      self.Pdeath,
-                                     self.sensi,
-                                     # + self.sigmaS*np.random.randn(),
-                                     self.Ptol,
-                                     # + self.sigmaT*np.random.randn(),
-                                     self.Pdetol))
-                                     # + self.sigmaT*np.random.randn()))
+                                     self.sensi
+                                     + self.sigmaS*np.random.randn(),
+                                     self.Ptol
+                                     + self.sigmaT*np.random.randn(),
+                                     int(self.time_tol_max
+                                         + np.random.randn())))
 
     def updatePop(self):
 
@@ -49,7 +50,7 @@ class colony:
                                         i.sensi
                                         + self.sigmaS * np.random.randn(),
                                         i.Ptol,
-                                        i.Pdetol))
+                                        i.time_tol_max))
 
                 if i.mutate(self.PmutT):
 
@@ -58,7 +59,7 @@ class colony:
                                         i.sensi,
                                         i.Ptol
                                         + self.sigmaT * np.random.randn(),
-                                        i.Pdetol))
+                                        i.time_tol_max))
 
                 if i.mutate(self.PmutT):
 
@@ -66,15 +67,15 @@ class colony:
                                         i.Pdeath,
                                         i.sensi,
                                         i.Ptol,
-                                        i.Pdetol
-                                        + self.sigmaT * np.random.randn()))
+                                        int(i.time_tol_max
+                                            + np.random.randn())))
                 else:
 
                     div.append(bacteria(i.Nm,
                                         i.Pdeath,
                                         i.sensi,
                                         i.Ptol,
-                                        i.Pdetol))
+                                        i.time_tol_max))
 
             i.tolerance()
 
@@ -103,7 +104,7 @@ class colony:
         for i in self.pop:
             moyS += i.sensi
             moyT += i.Ptol
-            moyD += i.Pdetol
+            moyD += i.time_tol_max
         # print(moyS/(len(self.pop)+1))
         # print(moyT/(len(self.pop)+1))
         # print("\n")
@@ -122,7 +123,7 @@ class colony:
             ret.append(self.stats())
 
             if t % 10 == 0:
-                self.C = 1.8
+                self.C = .2*t
 
             if len(self.pop) == 0:
                 print("oh no")
@@ -138,15 +139,15 @@ if __name__ == "__main__":
     length = 100
     C = 1.2
     sensi = .5
-    Ptol = 0
-    Pdetol = .5
-    PmutS = 1e-4
+    Ptol = 0.01
+    time_tol_max = 1
+    PmutS = 0.01
     PmutT = 0.01
-    sigmaS = 0.01
+    sigmaS = 0.1
     sigmaT = 0.1
-    T = 50
+    T = 100
 
-    c = colony(Pdeath, Nm, length, C, sensi, Ptol, Pdetol, PmutS, PmutT,
+    c = colony(Pdeath, Nm, length, C, sensi, Ptol, time_tol_max, PmutS, PmutT,
                sigmaS, sigmaT)
     results = c.run(T)
 
