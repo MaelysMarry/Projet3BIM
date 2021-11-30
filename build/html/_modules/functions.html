@@ -1,0 +1,129 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>functions &#8212; Bacteria t documentation</title>
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
+          <span>Bacteria t documentation</span></a></h1>
+        <h2 class="heading"><span>functions</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">exp</span>
+
+<span class="c1">#Fonction probabilité de division</span>
+<div class="viewcode-block" id="Pdi"><a class="viewcode-back" href="../ourCode.html#functions.Pdi">[docs]</a><span class="k">def</span> <span class="nf">Pdi</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Nm</span><span class="p">,</span> <span class="n">Pde</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;To calculate the division probability</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            N : int</span>
+<span class="sd">                Size of population</span>
+<span class="sd">            Nm : int</span>
+<span class="sd">                Limite size of bacteria population.</span>
+<span class="sd">            Pde : int</span>
+<span class="sd">                Probability for a bacteria to die, without antibiotic effect.</span>
+<span class="sd">            r : int</span>
+<span class="sd">                Why not</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            (1-a)/(1-a*exp(r*N)) : int</span>
+<span class="sd">                Division probability      </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># print(N)</span>
+    <span class="c1"># print(exp(r*Nm))</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pde</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">Pde</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">Nm</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">N</span><span class="p">))</span></div>
+
+<span class="c1">#Autre fonction probabilité de division non utilisée</span>
+<div class="viewcode-block" id="Pdi2"><a class="viewcode-back" href="../ourCode.html#functions.Pdi2">[docs]</a><span class="k">def</span> <span class="nf">Pdi2</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Nm</span><span class="p">,</span> <span class="n">Pde</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;To calculate the division probability</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            N : int</span>
+<span class="sd">                Size of population.</span>
+<span class="sd">            Nm : int</span>
+<span class="sd">                Limite size of bacteria population.</span>
+<span class="sd">            Pde : int</span>
+<span class="sd">                Probability for a bacteria to die, without antibiotic effect.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            Pde*(1+(Nm-N)/Nm) : int</span>
+<span class="sd">                Division probability      </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">Pde</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">Nm</span><span class="o">-</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="n">Nm</span><span class="p">)</span></div>
+
+<span class="c1">#Probabilité de mort générale. Une bactérie tolérante qui a stoppé son métabolisme ne sera pas affectée par l&#39;antibiotique. </span>
+<div class="viewcode-block" id="Pde"><a class="viewcode-back" href="../ourCode.html#functions.Pde">[docs]</a><span class="k">def</span> <span class="nf">Pde</span><span class="p">(</span><span class="n">Pdeath</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;To calculate the division probability</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            Pdeath : int</span>
+<span class="sd">                Probability for a bacteria to die, without antibiotic effect.</span>
+<span class="sd">            C : int</span>
+<span class="sd">                Concentration of antibiotic.</span>
+<span class="sd">            s : int</span>
+<span class="sd">                Resistance to the antibiotic (absolute value). If 0, bacteria is totally resistante</span>
+<span class="sd">            state : bool</span>
+<span class="sd">                State of the bacteria. O : bacteria stop her metabolism. 1 : normal metabolism</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            Pdeath+abs(s)*C*state : int</span>
+<span class="sd">                probability for a bacteria to die naturally      </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">Pdeath</span><span class="o">+</span><span class="nb">abs</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">C</span><span class="o">*</span><span class="n">state</span></div>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Maelys Marry, Vincent le Goff, Charles Nodot.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>
