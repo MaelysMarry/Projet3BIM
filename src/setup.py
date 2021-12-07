@@ -11,4 +11,4 @@ setup(name='HandsOnDeployAPackage',
       url='https://github.com/MaelysMarry/Projet3BIM',
       py_modules=['ourCode'],
       license_files = '../LICENSE',
-      install_requires = ['pandas>=1.3.4', 'matplotlib>=3.5.0'])
+      install_requires = ['matplotlib>=3.5.0', 'numpy', 'math'])
