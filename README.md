@@ -34,3 +34,6 @@ Limitless of the model : Notre modèle nous permet de suivre les valeurs moyenne
     plt.plot(range(T+1), [results[i][2] for i in range(len(results))])
     plt.plot(range(T+1), [results[i][3] for i in range(len(results))])
     plt.show()
+    
+### Link to web page
+https://maelysmarry.github.io/Projet3BIM/
