@@ -1,6 +1,6 @@
 # The goal of this project is to observe evolution of bacteria population when we submit them to an antibiotic. With that we can see antibioresistance of our bacteria population.
 
-## It's develloped by Vincent le Goff, Maelys Marry and Charles Nodot with the supervision of Guillaume Bellon to the 3BiM project
+## It's develloped by Vincent Le Goff, Maelys Marry and Charles Nodot with the supervision of Guillaume Bellon to the 3BiM project
 
 
 ### Installation
