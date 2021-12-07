@@ -9,6 +9,6 @@ setup(name='Bacteria',
       author='Maelys',
       author_email='maelys.marry@insa-lyon.fr',
       url='https://github.com/MaelysMarry/Projet3BIM',
-      py_modules=['ourCode'],
+      py_modules=['bacteria', 'colony', 'functions'],
       license_files = '../LICENSE',
       install_requires = ['numpy==1.17', 'matplotlib'])
