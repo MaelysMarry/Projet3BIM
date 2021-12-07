@@ -3,9 +3,9 @@
 import setuptools
 from distutils.core import setup
 
-setup(name='HandsOnDeployAPackage',
-      version='1.7',
-      description='Hands-on: deploy a Python package',
+setup(name='Bacteria',
+      version='1',
+      description='See evolution bacteria population with antibioresistance',
       author='Maelys',
       author_email='maelys.marry@insa-lyon.fr'
       url='https://github.com/MaelysMarry/Projet3BIM',
