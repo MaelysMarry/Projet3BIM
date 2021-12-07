@@ -11,4 +11,4 @@ setup(name='Bacteria',
       url='https://github.com/MaelysMarry/Projet3BIM',
       py_modules=['ourCode'],
       license_files = '../LICENSE',
-      install_requires = ['matplotlib>=3.5.0', 'numpy', 'math'])
+      install_requires = ['matplotlib>=3.5.0', 'numpy'])
